@@ -140,8 +140,7 @@ namespace AlmostPaint
             while (y < ymax)
             {
                 while (vertices[i].Y == y)
-                {
-                    // remember to wrap indices in polygon                                    
+                {                                   
                     if (i > 0)
                     {
                         if (vertices[i - 1].Y > vertices[i].Y)
@@ -194,7 +193,7 @@ namespace AlmostPaint
                             unsafe
                             {
                                 byte* tmp = scan0 + ((y - ymin) % bData.Height) * bData.Stride + ((x - xmin) % bData.Width) * bitsPerPixel / 8;
-                                color= System.Drawing.Color.FromArgb(255, tmp[2], tmp[1], tmp[0]);
+                                color = System.Drawing.Color.FromArgb(255, tmp[2], tmp[1], tmp[0]);
                             }
                             Drawing.DrawPixel(x, y, color);
                         }
