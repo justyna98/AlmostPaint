@@ -1,0 +1,114 @@
+﻿<Window x:Class="AlmostPaint.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AlmostPaint"
+        mc:Ignorable="d"
+        Title="Lines and circles" Height="620" Width="935"
+        ResizeMode="NoResize"
+        Background="WhiteSmoke"
+        ContentRendered="Window_ContentRendered">
+    <Grid >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="150"/>
+
+            <ColumnDefinition Width="140"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="25"/>
+        </Grid.RowDefinitions>
+        <StackPanel  Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal">
+            <Button Width="150" Height="20" Margin="10,0,0,0" Click="LoadFile">Load</Button>
+            <Button Width="150" Height="20" Margin="10,0,0,0" Click="SaveFile">Save</Button>
+            <Button Width="150" Height="20" Margin="10,0,0,0" Click="Rest">Reset</Button>
+            <TextBox Name="LocatioinBox"  Margin="10,2,0,3" Width="112" ></TextBox>
+        </StackPanel>
+        <Grid Grid.Column="1" Grid.Row="0" Margin="0,0,0,0">
+            <StackPanel Margin="0,0,0,10">
+                <GroupBox Header="Mode"  Margin="0,0,5,0" BorderBrush="LightSlateGray">
+                    <StackPanel>
+                        <TextBlock Margin="5,0,5,0">Draw:</TextBlock>
+                        <RadioButton Margin="10,2,0,0" Name="ChosenLine">line</RadioButton>
+                        <RadioButton Margin="10,2,0,0" Name="ChosenCircle" >circle</RadioButton>
+                        <RadioButton Margin="10,2,0,0" Name="ChosenPoly" >polygon</RadioButton>
+                        <RadioButton Margin="10,2,0,0" Name="ChosenSector" >sector</RadioButton>
+                        <RadioButton Margin="10,2,0,0" Name="ChosenRectangle" >rectangle</RadioButton>
+                        <TextBlock Margin="5,0,5,0">Edit:</TextBlock>
+                        <RadioButton Name="movinggbutton" Margin="10,2,0,0"  >move</RadioButton>
+                        <RadioButton Name="deletingbutton" Margin="10,2,0,0"  >delete</RadioButton>
+                        <RadioButton Name="Eradiussbutton" Margin="10,2,0,0"  >change radius</RadioButton>
+                        <RadioButton Name="Everticesbutton" Margin="10,2,0,0"  >move vertices</RadioButton>
+                        <RadioButton Name="Ecolorbutton" Margin="10,2,0,0"  >change color</RadioButton>
+                        <RadioButton Name="Ethickbutton" Margin="10,2,0,0"  >change thickness</RadioButton>
+                        <RadioButton Name="Eedgsbutton" Margin="10,2,0,0"  >move edge</RadioButton>
+                        <RadioButton Name="ClipToRec" Margin="10,2,0,0">clip</RadioButton>
+                        <TextBlock Margin="5,0,5,0">Fill:</TextBlock>
+                        <RadioButton Name="FillIpoly" Margin="10,2,0,0"  >polygon - pattern</RadioButton>
+                        <RadioButton Name="FillCpoly" Margin="10,2,0,0"  >polygon - color</RadioButton>
+                        <RadioButton Name="BoundaryFill" Margin="10,2,0,0"  >all - color</RadioButton>
+                        
+                        
+                    </StackPanel>
+
+                </GroupBox>
+                <GroupBox Header="Colors"  Margin="0,0,5,0" BorderBrush="LightSlateGray">
+                    <StackPanel>
+                        <DockPanel>
+                            <TextBlock>Drawing:</TextBlock>
+                            <Button x:Name="colorbox" Margin="12,2,5,2" Click="ChangeColor"></Button>
+                        </DockPanel>
+                        <DockPanel>
+                            <TextBlock>Filling:</TextBlock>
+                            <Button x:Name="colorbox2" Margin="25,2,5,2" Click="ChangeFillingColor"></Button>
+                        </DockPanel>
+                        <DockPanel>
+                            <TextBlock>Clipping:</TextBlock>
+                            <Button x:Name="colorbox3" Margin="12,2,5,2" Click="ChangeClippingColor"></Button>
+                        </DockPanel>
+                        <DockPanel RenderTransformOrigin="0.446,0.5">
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Pattern:</TextBlock>
+                            <Button Name="ChoosePatternButton"  Margin="15,2,0,2" Click="ChoosePattern" Width="70">Choose</Button>
+                        </DockPanel>
+
+
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Header="Settings"  Margin="0,0,5,0"  BorderBrush="LightSlateGray">
+                    <StackPanel>
+                        <DockPanel>
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Thickness:</TextBlock>
+                            <ComboBox Name="ThicknessBox" Margin="5,2,0,2" Width="55" >
+                                <ComboBoxItem IsSelected="True"  Content="1"/>
+                                <ComboBoxItem Content="3"/>
+                                <ComboBoxItem Content="5"/>
+                                <ComboBoxItem Content="7"/>
+                                <ComboBoxItem Content="9"/>
+                            </ComboBox>
+
+                        </DockPanel>
+                        <CheckBox  VerticalAlignment="Center" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked">
+                            Anti-Aliasing
+                        </CheckBox>
+                    </StackPanel>
+                </GroupBox>
+
+            </StackPanel>
+
+        </Grid>
+        <Grid Grid.Column="2" Grid.Row="0" Margin="0,0,0,5">
+            <StackPanel Margin="0,0,0,10">
+                <TextBlock Margin="5,5,5,5" TextWrapping="Wrap" Name="TextBox"   Height="503"></TextBlock>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Column="0" Grid.Row="0">
+            <Border Margin="5,5,5,5" BorderThickness="1"   >
+                <Image Name="image" Stretch="Fill" MouseMove="Image_MouseMove" MouseUp="Image_MouseUp" MouseDown="Image_MouseDown"/>
+            </Border>
+        </Grid>
+
+    </Grid>
+</Window>
